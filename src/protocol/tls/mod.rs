@@ -53,6 +53,7 @@ fn get_cipher_name(cipher: &SupportedCipherSuite) -> &'static str {
         &TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
     ];
      */
+
     match cipher.suite {
         CipherSuite::TLS13_CHACHA20_POLY1305_SHA256 => "TLS13_CHACHA20_POLY1305_SHA256",
         CipherSuite::TLS13_AES_256_GCM_SHA384 => "TLS13_AES_256_GCM_SHA384",
@@ -89,7 +90,7 @@ fn get_cipher_suite(cipher: Option<Vec<String>>) -> io::Result<Vec<&'static Supp
     for name in cipher {
         let mut found = false;
         for i in ALL_CIPHERSUITES.to_vec() {
-            if name == get_cipher_name(i) {
+            if name == get_cipher_name(&i) {
                 result.push(i);
                 found = true;
                 log::debug!("cipher: {} applied", name);
